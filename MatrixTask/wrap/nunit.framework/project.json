@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "bin": {
+        "assembly": "C:\\Work2\\MatrixTask\\MatrixTask\\packages\\NUnit.3.6.1\\lib\\net45\\nunit.framework.dll"
+      }
+    }
+  }
+}
