@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLogic;
 
 namespace MatrixTask
 {
@@ -10,6 +12,21 @@ namespace MatrixTask
     {
         static void Main(string[] args)
         {
+            while (true)
+            {
+                Console.WriteLine();
+                Console.Write("Enter number: ");
+                var input = Console.ReadLine();
+                try
+                {
+                    int n = int.Parse(input, NumberStyles.Integer);
+                    Console.WriteLine($"Result: {Garmonic.Search(n, 15)}");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
         }
     }
 }

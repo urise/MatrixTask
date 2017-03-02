@@ -23,10 +23,18 @@ namespace UnitTests
         [Test]
         public void SearchTest()
         {
+            Assert.That(Garmonic.Search(1, 15), Is.EqualTo(1));
+            Assert.That(Garmonic.Search(2, 15), Is.EqualTo(2));
             Assert.That(Garmonic.Search(3, 15), Is.EqualTo(2));
+            Assert.That(Garmonic.Search(4, 15), Is.EqualTo(3));
             Assert.That(Garmonic.Search(10, 15), Is.EqualTo(5));
             Assert.That(Garmonic.Search(37, 15), Is.EqualTo(13));
-            Assert.That(Garmonic.Search(100000000, 100000), Is.EqualTo(13106861));
+            Assert.That(Garmonic.Search(225, 15), Is.EqualTo(225));
+            Assert.That(Garmonic.Search(224, 15), Is.EqualTo(210));
+            Assert.That(Garmonic.Search(223, 15), Is.EqualTo(210));
+            Assert.That(Garmonic.Search(222, 15), Is.EqualTo(196));
+            Assert.That(Garmonic.Search(221, 15), Is.EqualTo(195));
+            Assert.That(Garmonic.Search(220, 15), Is.EqualTo(195));
         }
     }
 }
