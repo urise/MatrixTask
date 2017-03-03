@@ -19,8 +19,8 @@ namespace MatrixTask
                 var input = Console.ReadLine();
                 try
                 {
-                    int n = int.Parse(input, NumberStyles.Integer);
-                    Console.WriteLine($"Result: {Garmonic.Search(n, 15)}");
+                    long n = long.Parse(input, NumberStyles.Integer);
+                    Console.WriteLine($"Result: {Garmonic.Search(n, 100000)}");
                 }
                 catch (Exception e)
                 {
