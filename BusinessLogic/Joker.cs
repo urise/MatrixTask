@@ -10,11 +10,11 @@ namespace BusinessLogic
     {
         private class Card
         {
-            public int CardType { get; set; }
-            public int Count { get; set; }
+            public long CardType { get; set; }
+            public long Count { get; set; }
         }
 
-        private static bool IsOver(int jokersCount, List<Card> cards)
+        private static bool IsOver(long jokersCount, List<Card> cards)
         {
             if (cards.Count == 0) return true;
             if (cards.Count == 1) return cards[0].Count == 0 && jokersCount == 0;
@@ -22,12 +22,12 @@ namespace BusinessLogic
             return false;
         }
 
-        public static int GetNumberOfDecks(int jokersInitialCount, IEnumerable<int> cardsCounts)
+        public static long GetNumberOfDecks(long jokersInitialCount, IEnumerable<long> cardsCounts)
         {
             var cardType = 1;
             var cards = cardsCounts.Select(cnt => new Card {CardType = cardType++, Count = cnt}).ToList();
             cards.Sort((card1, card2) => card1.Count.CompareTo(card2.Count));
-            int result = 0, jokersCount = jokersInitialCount;
+            long result = 0, jokersCount = jokersInitialCount;
             while (!IsOver(jokersCount, cards))
             {
                 result++;

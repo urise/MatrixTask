@@ -14,25 +14,25 @@ namespace UnitTests
         [Test]
         public void GetNumberOfDecksTest1()
         {
-            Assert.That(Joker.GetNumberOfDecks(3, new[] {10, 15}), Is.EqualTo(13));
+            Assert.That(Joker.GetNumberOfDecks(3, new long[] {10, 15}), Is.EqualTo(13));
         }
 
         [Test]
         public void GetNumberOfDecksTest2()
         {
-            Assert.That(Joker.GetNumberOfDecks(4, new[] { 1, 2, 3 }), Is.EqualTo(3));
+            Assert.That(Joker.GetNumberOfDecks(4, new long[] { 1, 2, 3 }), Is.EqualTo(3));
         }
 
         [Test]
         public void GetNumberOfDecksTest3()
         {
-            Assert.That(Joker.GetNumberOfDecks(5, new[] { 1 }), Is.EqualTo(6));
+            Assert.That(Joker.GetNumberOfDecks(5, new long[] { 1 }), Is.EqualTo(6));
         }
 
         [Test]
         public void GetNumberOfDecksTest4()
         {
-            Assert.That(Joker.GetNumberOfDecks(3, new[] { 2, 3, 4, 5, 6 }), Is.EqualTo(4));
+            Assert.That(Joker.GetNumberOfDecks(3, new long[] { 2, 3, 4, 5, 6 }), Is.EqualTo(4));
         }
 
     }
