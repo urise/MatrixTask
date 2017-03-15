@@ -8,42 +8,40 @@ namespace BusinessLogic
 {
     public static class Joker
     {
-        private class Card
+        public static long GetNumberOfDecks(long jokersInitialCount, long[] cards)
         {
-            public long CardType { get; set; }
-            public long Count { get; set; }
-        }
-
-        public static long GetNumberOfDecks(long jokersInitialCount, IEnumerable<long> cardsCounts)
-        {
-            var cardType = 1;
-            var cards = cardsCounts.Select(cnt => new Card { CardType = cardType++, Count = cnt }).ToList();
-            cards.Sort((card1, card2) => card1.Count.CompareTo(card2.Count));
-            long result = 0, jokersCount = jokersInitialCount;
-            if (cards.Count == 1)
+            if (cards.Length == 1)
             {
-                return jokersInitialCount + cards[0].Count;
+                return jokersInitialCount + cards[0];
             }
 
-            long diff = Math.Min(jokersInitialCount, cards[1].Count - cards[0].Count);
+            long min = Math.Min(cards[0], cards[1]);
+            long min2 = Math.Max(cards[0], cards[1]);
+            int min2quantity = 1;
+
+            for (int i = 2; i < cards.Length; i++)
+            {
+                if (cards[i] < min) min = cards[i];
+                else if (cards[i] == min2) min2quantity++;
+                else if (cards[i] < min2)
+                {
+                    min2 = cards[i];
+                    min2quantity = 1;
+                }
+            }
+            long result = 0, jokersCount = jokersInitialCount;
+
+            long diff = Math.Min(jokersCount, min2 - min);
             if (diff > 0)
             {
                 result += diff;
-                for (int i = 1; i < cards.Count; i++) cards[i].Count -= diff;
                 jokersCount -= diff;
             }
 
-            if (jokersCount == 0) return result + cards[0].Count;
+            if (jokersCount == 0) return result + min;
 
-            int equals = 1;
-            for (int i = 1; i < cards.Count; i++)
-            {
-                if (cards[i].Count != cards[0].Count) break;
-                equals++;
-            }
-
-            long n = Math.Min(jokersCount, cards[0].Count*equals);
-            return result + n + cards[0].Count - n/equals;
+            long n = Math.Min(jokersCount, min*(min2quantity+1));
+            return result + n + min - 1 - (n-1)/(min2quantity+1);
         }
     }
 }

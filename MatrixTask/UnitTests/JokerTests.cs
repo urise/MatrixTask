@@ -40,5 +40,11 @@ namespace UnitTests
         {
             Assert.That(Joker.GetNumberOfDecks(4, new long[] { 2, 2 }), Is.EqualTo(4));
         }
+
+        [Test]
+        public void GetNumberOfDecksTest6()
+        {
+            Assert.That(Joker.GetNumberOfDecks(3, new long[] { 2, 2, 2, 2 }), Is.EqualTo(4));
+        }
     }
 }
