@@ -14,51 +14,36 @@ namespace BusinessLogic
             public long Count { get; set; }
         }
 
-        private static bool IsOver(long jokersCount, List<Card> cards)
-        {
-            if (cards.Count == 0) return true;
-            if (cards.Count == 1) return cards[0].Count == 0 && jokersCount == 0;
-            if (cards[0].Count == 0 && (cards[1].Count == 0 || jokersCount == 0)) return true;
-            return false;
-        }
-
         public static long GetNumberOfDecks(long jokersInitialCount, IEnumerable<long> cardsCounts)
         {
             var cardType = 1;
-            var cards = cardsCounts.Select(cnt => new Card {CardType = cardType++, Count = cnt}).ToList();
+            var cards = cardsCounts.Select(cnt => new Card { CardType = cardType++, Count = cnt }).ToList();
             cards.Sort((card1, card2) => card1.Count.CompareTo(card2.Count));
             long result = 0, jokersCount = jokersInitialCount;
-            while (!IsOver(jokersCount, cards))
+            if (cards.Count == 1)
             {
-                result++;
-                if (cards.Count == 1)
-                {
-                    if (cards[0].Count == 0) jokersCount--;
-                    else cards[0].Count--;
-                }
-                else
-                {
-                    if (jokersCount > 0)
-                    {
-                        for (int i = 1; i < cards.Count; i++)
-                        {
-                            cards[i].Count--;
-                        }
-                        jokersCount--;
-                        if (cards[0].Count > cards[1].Count)
-                        {
-                            var card = cards[0];
-                            cards[0] = cards[1];
-                            cards[1] = card;
-                        }
-                    }
-                    else
-                    {
-                        foreach (var card in cards) card.Count--;
-                    }
-                }
+                return jokersInitialCount + cards[0].Count;
             }
-            return result;
+
+            long diff = Math.Min(jokersInitialCount, cards[1].Count - cards[0].Count);
+            if (diff > 0)
+            {
+                result += diff;
+                for (int i = 1; i < cards.Count; i++) cards[i].Count -= diff;
+                jokersCount -= diff;
+            }
+
+            if (jokersCount == 0) return result + cards[0].Count;
+
+            int equals = 1;
+            for (int i = 1; i < cards.Count; i++)
+            {
+                if (cards[i].Count != cards[0].Count) break;
+                equals++;
+            }
+
+            long n = Math.Min(jokersCount, cards[0].Count*equals);
+            return result + n + cards[0].Count - n/equals;
         }
     }
 }
